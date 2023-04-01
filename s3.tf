@@ -2,7 +2,7 @@ resource "aws_s3_bucket" "website_bucket_redirect" {
   bucket = "${var.domain_name}-redirect"
 
   tags = {
-    Name        = "${var.domain_name} Redirect"
+    Name = "${var.domain_name} Redirect"
     # Environment = "Dev"
   }
 }
@@ -18,7 +18,7 @@ resource "aws_s3_bucket" "website_bucket" {
   bucket = var.domain_name
 
   tags = {
-    Name        = "${var.domain_name} Website"
+    Name = "${var.domain_name} Website"
     # Environment = "Dev"
   }
 }
