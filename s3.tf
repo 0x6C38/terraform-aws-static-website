@@ -1,8 +1,8 @@
 resource "aws_s3_bucket" "website_bucket_redirect" {
-  bucket = "${var.domain_name}-redirect"
+  bucket = "${local.domain_name}-redirect"
 
   tags = {
-    Name = "${var.domain_name} Redirect"
+    Name = "${local.domain_name} Redirect"
     # Environment = "Dev"
   }
 }
@@ -10,15 +10,15 @@ resource "aws_s3_bucket" "website_bucket_redirect" {
 resource "aws_s3_bucket_website_configuration" "redirect_bucket_website_config" {
   bucket = aws_s3_bucket.website_bucket_redirect.id
   redirect_all_requests_to {
-    host_name = var.domain_name
+    host_name = local.domain_name
   }
 }
 
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = var.domain_name
+  bucket = local.domain_name
 
   tags = {
-    Name = "${var.domain_name} Website"
+    Name = "${local.domain_name} Website"
     # Environment = "Dev"
   }
 }

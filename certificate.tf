@@ -1,10 +1,10 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = var.domain_name
+  domain_name       = local.domain_name
   validation_method = "DNS"
 }
 
 data "aws_route53_zone" "domain_hosted_zone" {
-  name         = var.domain_name
+  name         = var.naked_domain
   private_zone = false
 }
 

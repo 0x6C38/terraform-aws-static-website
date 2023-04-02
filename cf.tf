@@ -1,5 +1,5 @@
 locals {
-  cfn = "${var.domain_name}-website-cf"
+  cfn = "${local.domain_name}-website-cf"
 }
 
 resource "aws_cloudfront_distribution" "root_cloud_front" {
@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "root_cloud_front" {
       http_port              = 80
       https_port             = 443
       origin_protocol_policy = "http-only"
-      origin_ssl_protocols   = ["TLSv1.3"] #1.2?
+      origin_ssl_protocols   = ["TLSv1.2"]
     }
   }
 
@@ -45,7 +45,7 @@ resource "aws_cloudfront_distribution" "root_cloud_front" {
     response_page_path    = "/index.html"
   }
 
-  aliases = [var.domain_name]
+  aliases = [local.domain_name]
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.cert.arn
