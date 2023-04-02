@@ -1,6 +1,7 @@
 locals {
-  cfn = "${local.domain_name}-website-cf"
-  rcfn = "${local.domain_name}-redirect-cf"
+  cfn       = "${local.domain_name}-website-cf"
+  rcfn      = "${local.domain_name}-redirect-cf"
+  wwwdomain = "www.${local.domain_name}"
 }
 
 resource "aws_cloudfront_distribution" "root_cloud_front" {
@@ -96,7 +97,7 @@ resource "aws_cloudfront_distribution" "redirect_cloud_front" {
   #   response_page_path    = "/index.html"
   # }
 
-  aliases = ["www.${local.domain_name}"]
+  aliases = [local.domain_name_www]
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.cert.arn
