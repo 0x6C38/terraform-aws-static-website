@@ -16,7 +16,7 @@ resource "aws_cloudfront_distribution" "root_cloud_front" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.website_bucket.bucket_regional_domain_name # THIS COULD BE WRONG
+    domain_name = aws_s3_bucket.website_bucket_redirect.bucket_domain_name # THIS COULD BE WRONG
     origin_id   = local.cfn
     custom_origin_config {
       http_port              = 80
@@ -67,7 +67,7 @@ resource "aws_cloudfront_distribution" "redirect_cloud_front" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.website_bucket_redirect.bucket_regional_domain_name # THIS COULD BE WRONG
+    domain_name = aws_s3_bucket.website_bucket_redirect.bucket_domain_name # THIS COULD BE WRONG
     origin_id   = local.rcfn
     custom_origin_config {
       http_port              = 80
@@ -78,7 +78,7 @@ resource "aws_cloudfront_distribution" "redirect_cloud_front" {
   }
 
   default_cache_behavior {
-    target_origin_id       = local.cfn
+    target_origin_id       = local.rcfn
     viewer_protocol_policy = "redirect-to-https"
     forwarded_values {
       query_string = false
@@ -89,13 +89,6 @@ resource "aws_cloudfront_distribution" "redirect_cloud_front" {
     allowed_methods = ["GET", "HEAD"]
     cached_methods  = ["GET", "HEAD"] # could be wrongs
   }
-
-  # custom_error_response {
-  #   error_caching_min_ttl = 300
-  #   error_code            = 404
-  #   response_code         = 200
-  #   response_page_path    = "/index.html"
-  # }
 
   aliases = [local.domain_name_www]
 
