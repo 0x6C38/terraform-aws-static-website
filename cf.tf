@@ -16,7 +16,7 @@ resource "aws_cloudfront_distribution" "root_cloud_front" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.website_bucket_redirect.bucket_domain_name # THIS COULD BE WRONG
+    domain_name = aws_s3_bucket.website_bucket.bucket_domain_name
     origin_id   = local.cfn
     custom_origin_config {
       http_port              = 80
@@ -67,7 +67,7 @@ resource "aws_cloudfront_distribution" "redirect_cloud_front" {
   }
 
   origin {
-    domain_name = aws_s3_bucket.website_bucket_redirect.bucket_domain_name # THIS COULD BE WRONG
+    domain_name = aws_s3_bucket.website_bucket_redirect.bucket_domain_name
     origin_id   = local.rcfn
     custom_origin_config {
       http_port              = 80
