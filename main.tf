@@ -1,14 +1,4 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.61.0"
-    }
-  }
-}
-
-provider "aws" {
-  region                   = "us-east-1"
-  shared_credentials_files = ["$HOME/.aws/credentials"]
-  profile                  = "default"
+locals {
+  domain_name     = "${var.naked_subdomain}${var.naked_domain}"
+  domain_name_www = "www.${local.domain_name}"
 }

@@ -23,8 +23,3 @@ variable "naked_subdomain" {
     error_message = "The subdomain must end in a dot. For 'subdomain.example.com' simply use 'subdomain.'"
   }
 }
-
-locals {
-  domain_name = "${var.naked_subdomain}${var.naked_domain}"
-  domain_name_www = "www.${local.domain_name}"
-}
